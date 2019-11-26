@@ -1,0 +1,10 @@
+This example was created by running the following commands:
+
+cd /tmp/wrapknish/examples/src
+../../wrapknish -p net/http -n wrapped_ -c ../my_http_hooks
+cd ..
+GOPATH=/tmp/wrapknish/examples go build
+
+my_http_hooks contains the code overrides to apply to the net/http package -- in this case, the http.client.Head() method and http.Post() function.
+
+You can find the output of this command under wrapped_net/http.
