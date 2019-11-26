@@ -60,9 +60,9 @@ func emitType(w io.Writer, t interface{}) {
         emitFuncType(w, v)
     case *ast.ChanType:
         if v.Dir == ast.SEND {
-            emit(w, "<-chan ")
-        } else {
             emit(w, "chan<- ")
+        } else {
+            emit(w, "<-chan ")
         }
         emitType(w, v.Value)
     default:

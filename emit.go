@@ -38,7 +38,7 @@ func emitParamList(w io.Writer, params *ast.FieldList, emitTypes bool, generateM
                 for nameIndex, n := range param.Names {
                     emitFieldListSeparator(w, nameIndex)
                     emit(w, "%s", n.Name)
-                    if emitTypes {
+                    if emitTypes && nameIndex == len(param.Names) - 1 {
                         emit(w, " ")
                     }
                 }
@@ -65,9 +65,14 @@ func emitFuncType(w io.Writer, x *ast.FuncType) {
     emitParamList(w, x.Params, true, false)
     emit(w, ")")
     if x.Results != nil && len(x.Results.List) > 0 {
-        emit(w, "(")
+        emit(w, " ")
+        if len(x.Results.List) > 1 {
+            emit(w, "(")
+        }
         emitResultsList(w, x.Results)
-        emit(w, ")")
+        if len(x.Results.List) > 1 {
+            emit(w, ")")
+        }
     }
 }
 
@@ -164,7 +169,7 @@ func emitImportSpecs(w io.Writer, specs []ast.Spec) {
 
     emit(w, "import (\n")
     for _, spec := range specs {
-        emit(w, "\t")
+        emit(w, "    ")
         v := spec.(*ast.ImportSpec)
         if v.Name != nil {
             emit(w, "%s ", v.Name.Name)
