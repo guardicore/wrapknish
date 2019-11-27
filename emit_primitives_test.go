@@ -32,3 +32,31 @@ func TestEmitType(t *testing.T) {
         }
     }
 }
+
+func TestEmitValue(t *testing.T) {
+    expectedValues := []string{
+        "1234",
+        "5 + 5",
+        "myself",
+        "FunctionCall()",
+        "some_pkg.SomeVar",
+        "Charles{1, 2, 3, 4}",
+        "!0xFFFF",
+        "(666)",
+        "VeryComplex{(1234) + pkg.Value, !(44 * 32), ReturnSix(), a_value, {6}}",
+    }
+
+    for _, v := range expectedValues {
+        e, err := parser.ParseExpr(v)
+        if err != nil {
+            t.Errorf("failed to parse value expression %q", v)
+        }
+        valueNameBuffer := new(bytes.Buffer)
+        emitValue(valueNameBuffer, e)
+        emittedValue := valueNameBuffer.String()
+        if v != emittedValue {
+            t.Errorf("emitted value was incorrect: expected %q but got %q", v, emittedValue)
+        }
+    }
+}
+
