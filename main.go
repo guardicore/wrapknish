@@ -92,8 +92,8 @@ func main() {
 
     var pkg, overridesDir, newPkgPrefix string
     flag.StringVar(&pkg, "p", "", "the package to wrap (for example, \"net/http\").\nwrapknish will search for this package under $GOROOT and $GOPATH.")
-    flag.StringVar(&overridesDir, "c", "", "prefix for new package path.\nfor example, \"hooked_\" will create \"hooked_net/http\" from \"net/http\".")
-    flag.StringVar(&newPkgPrefix, "n", "", "directory of code to override wrappers with.\nfor example, \"my_hooks\" should have override implementations under \"my_hooks/net/http/my_impl.go\" if you wrap \"net/http\".")
+    flag.StringVar(&overridesDir, "c", "", "directory of code to override wrappers with.\nfor example, \"my_hooks\" should have override implementations under \"my_hooks/net/http/my_impl.go\" if you wrap \"net/http\".")
+    flag.StringVar(&newPkgPrefix, "n", "", "prefix for new package path.\nfor example, \"hooked_\" will create \"hooked_net/http\" from \"net/http\".")
     flag.Parse()
 
     if pkg == "" {
