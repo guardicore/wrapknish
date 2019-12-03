@@ -49,19 +49,19 @@ func (w *WrapperOverrides) IsVarOverridden(varName string) bool {
 
 func (w *WrapperOverrides) MarkFuncOverride(funcName string) {
     if w.IsFuncOverridden(funcName) {
-        fatal("func %s has already been marked for override -- check for redefinition")
+        fatal("func %s has already been marked for override -- check for redefinition", funcName)
     }
     w.funcs[funcName] = true
 }
 func (w *WrapperOverrides) MarkMethodOverride(typeName, funcName string) {
     if w.IsMethodOverridden(typeName, funcName) {
-        fatal("method %s has already been marked for override -- check for redefinition")
+        fatal("method %s has already been marked for override -- check for redefinition", funcName)
     }
     w.methods[methodName{typeName, funcName}] = true
 }
 func (w *WrapperOverrides) MarkTypeOverride(typeName string, overrideMode int) {
     if w.GetTypeOverride(typeName) != TYPE_OVERRIDE_NONE {
-        fatal("type %s has already been marked for override -- check for redefinition")
+        fatal("type %s has already been marked for override -- check for redefinition", typeName)
     }
     if overrideMode != TYPE_OVERRIDE_NO_METHODS && overrideMode != TYPE_OVERRIDE_AUTO_WRAP_METHODS {
         fatal("invalid type override mode %d\n", overrideMode)
@@ -70,7 +70,7 @@ func (w *WrapperOverrides) MarkTypeOverride(typeName string, overrideMode int) {
 }
 func (w *WrapperOverrides) MarkVarOverride(varName string) {
     if w.IsVarOverridden(varName) {
-        fatal("var %s has already been marked for override -- check for redefinition")
+        fatal("var %s has already been marked for override -- check for redefinition", varName)
     }
     w.vars[varName] = true
 }
